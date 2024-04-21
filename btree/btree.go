@@ -1,6 +1,14 @@
 package btree
 
 
+const (
+	M = 4 // ORDER OF A TREE
+	MAX_NUM_OF_KEYS = M - 1 // MAXIMUM NUMBER OF KEYS ALLOWED IN A NODE
+	ceilOfM = M / 2
+	MIN_NUM_OF_KEYS = ceilOfM - 1 // MINIMUM NUMBER OF KEYS ALLOWED IN A NODE EXCEPT ROOT
+)
+
+
 type Data struct {
 	keys []int
 	values []string
@@ -12,14 +20,6 @@ func NewData() *Data {
 		values: make([]string, M),
 	}
 }
-
-
-const (
-	M = 4 // ORDER OF A TREE
-	MAX_NUM_OF_KEYS = M - 1 // MAXIMUM NUMBER OF KEYS ALLOWED IN A NODE
-	ceilOfM = M / 2
-	MIN_NUM_OF_KEYS = ceilOfM - 1 // MINIMUM NUMBER OF KEYS ALLOWED IN A NODE EXCEPT ROOT
-)
 
 type Node struct {
 	numKeys int
@@ -264,7 +264,10 @@ func (node *Node) inorder(result *[]Pair) {
 		*result = append(*result, *pair)
 	  }
 	}
-  }
+}
+
+
+
 
 func NewNode() *Node {
 	return &Node{
@@ -280,6 +283,8 @@ type Tree struct {
 	root *Node
 	maxKeys int
 }
+
+
 
 func (tree *Tree) Find(key int) (*Node, int) {
 	currentNode := tree.root
